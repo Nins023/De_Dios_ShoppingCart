@@ -1,1 +1,1 @@
-# De_Dios_ShoppingCart
+April 12, 2026: So far I was thinking that I want a seperate class for the system (Class1.cs) and another class for the receipt or purchase history if possible., and so far I have done a sample list of items and their prices as well as made a total price whenever the user picks an item. I learned how to use TryParse from someone else, and so far there is none A.I prompt since I took inspiration from the voting system activity. 
