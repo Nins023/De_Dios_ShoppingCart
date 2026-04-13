@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Channels;
 
 namespace Shopping_Cart_De_Dios
 {
@@ -10,11 +11,18 @@ namespace Shopping_Cart_De_Dios
         {
             string[] shop = ["Soda", "Chips"];
             int[] cart = new int[shop.Length];
-            int[] price = [10, 20];
+            int[] price = [5000, 20];
             int[] prices = new int[price.Length];
+            int[] stock = [50, 50];
+            int[] stocks = new int[stock.Length];
             int Total_Price = 0;
+            int remStock = 0;
+            int Grand_Total = 0;
+            int Grand_Total1 = 0;
+            double discount = 0.90;
 
             bool exit = false;
+            bool paid = false;      
 
             while (!exit)
             {
@@ -50,8 +58,9 @@ namespace Shopping_Cart_De_Dios
 
                         for (int i = 0; i < shop.Length; i++)
                         {
-                            for (int x = 0; x < price.Length; x++)
-                                Console.WriteLine($"{i + 1} - {shop[i]} - {price[i]}");
+                            
+                                Console.WriteLine($"{i + 1} - Item: {shop[i]} | Price: {price[i]} | Stock: {stock[i]}");
+                            
                         }
 
                         Console.WriteLine("Enter number to add in cart: ");
@@ -60,7 +69,18 @@ namespace Shopping_Cart_De_Dios
 
                         if (int.TryParse(add, out order) && order >= 1 && order <= shop.Length)
                         {
-                            Total_Price += price[order - 1];
+                            Console.Write("Enter purchase amount: ");
+                            string amount = Console.ReadLine();
+                            int amount_purchase;
+                            if (int.TryParse(amount, out amount_purchase))
+                            {
+                                Grand_Total1 += price[order - 1] * amount_purchase;
+
+                            }
+                            if (stock[order - 1] >= amount_purchase)
+                            {
+                               stock[order - 1] -= amount_purchase;
+                            }
                         }
 
                         if (!int.TryParse(add, out order))
@@ -72,7 +92,82 @@ namespace Shopping_Cart_De_Dios
 
                     case 3:
 
-                        Console.WriteLine($"Total amount $" + Total_Price);
+                        if (Grand_Total1 >= 5000)
+                        {
+                            Grand_Total = (int)(Grand_Total1 * discount);
+                            Console.WriteLine($"Total amount $" + Grand_Total);
+                        }
+
+                        
+
+                        break;
+
+
+                    case 4:
+                        Console.WriteLine($"Your total is: $" + Grand_Total);
+                        Console.Write("Would you like to continue to pay? 1 (yes) or 2 (no): ");
+                        string option = Console.ReadLine();
+                        int optpay;
+                        if (int.TryParse(option, out optpay) && optpay == 1)
+                        {
+
+
+
+                            while (!paid)
+                            {
+                                if (Grand_Total1 >= 5000)
+                                {
+                                    Grand_Total = (int)(Grand_Total1 * discount);
+
+                                    Console.WriteLine($"Total amount: $" + Grand_Total);
+                                    Console.Write("Enter amount of payment: ");
+                                    string payment = Console.ReadLine();
+                                    int userpay;
+
+                                    if (int.TryParse(payment, out userpay) && userpay >= Grand_Total)
+                                    {
+                                        Console.WriteLine("Payment succsesfull");
+                                        int change = userpay - Grand_Total;
+                                        Console.WriteLine($"Change: " + change);
+                                        Grand_Total = 0;
+                                        paid = true;
+
+                                    }
+
+                                    else if (!int.TryParse(payment, out userpay))
+                                    {
+                                        Console.WriteLine("Invalid Input");
+
+                                    }
+
+                                    else
+                                    {
+                                        Console.WriteLine("Payment is less than amount");
+
+                                    }
+                                }
+                            }
+                        }
+                        else if (int.TryParse(option, out optpay) && optpay == 1)
+                        {
+                            continue;
+                        }
+                        else if (int.TryParse(option, out optpay) && optpay > 2)
+                        {
+                            Console.WriteLine("Invalid Input");
+                        }
+
+                        else if (!int.TryParse(option, out optpay))
+                        {
+                            Console.WriteLine("Invalid Input");
+                        }
+
+                        break;
+
+
+                    case 5:
+
+                        exit = true;
 
                         break;
                 }

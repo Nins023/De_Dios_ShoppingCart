@@ -1,11 +1,52 @@
-﻿namespace Shopping_Cart_De_Dios
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace Shopping_Cart_De_Dios
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-            Class1.Hello();
+
+            bool exit = false;
+            while (!exit)
+            {
+                Console.WriteLine("Choose Option");
+                Console.WriteLine("1 - Shopping system");
+                Console.WriteLine("2 - Receipts/Purchase history");
+                Console.Write("Enter Option: ");
+                string Options = Console.ReadLine();
+                int choice;
+                if (int.TryParse(Options, out choice))
+                {
+                    switch (choice)
+                    {
+                        case 1:
+
+                            Class1.Hello();
+
+                            break;
+
+                        case 2:
+
+                            Console.WriteLine("Not available yet!");
+
+                            break;
+
+
+                        case 3:
+
+                            exit = true;
+
+                            break;
+                        default:
+
+                            Console.WriteLine("Invalid Option");
+
+                            break;
+                    }
+                }
+            }
         }
+
     }
 }
