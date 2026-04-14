@@ -10,6 +10,9 @@ namespace Shopping_Cart_De_Dios
             bool exit = false;
             while (!exit)
             {
+                Console.WriteLine("De Dios Shopping cart system");
+                Console.WriteLine("Current stocks");
+                Class2.menu();
                 Console.WriteLine("Choose Option");
                 Console.WriteLine("1 - Shopping system");
                 Console.WriteLine("2 - Receipts/Purchase history");
@@ -28,7 +31,7 @@ namespace Shopping_Cart_De_Dios
 
                         case 2:
 
-                            Console.WriteLine("Not available yet!");
+                           Class2.receipt();
 
                             break;
 

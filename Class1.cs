@@ -7,13 +7,18 @@ namespace Shopping_Cart_De_Dios
 {
     internal class Class1
     {
+        public static string[] shop = ["Soda", "Chips"];
+        public static int[] price = [5000, 20];
+        public static int[] stock = [50, 50];
+        public static List<string> purchases  = new List<string>();
         public static void Hello()
         {
-            string[] shop = ["Soda", "Chips"];
+           
             int[] cart = new int[shop.Length];
-            int[] price = [5000, 20];
+
+            
             int[] prices = new int[price.Length];
-            int[] stock = [50, 50];
+            
             int[] stocks = new int[stock.Length];
             int Total_Price = 0;
             int remStock = 0;
@@ -22,7 +27,7 @@ namespace Shopping_Cart_De_Dios
             double discount = 0.90;
 
             bool exit = false;
-            bool paid = false;      
+            bool paid = false;
 
             while (!exit)
             {
@@ -31,7 +36,8 @@ namespace Shopping_Cart_De_Dios
                 Console.WriteLine("2 - Add to Cart");
                 Console.WriteLine("3 - See total");
                 Console.WriteLine("4 - Payment");
-                Console.WriteLine("5 - Exit");
+                Console.WriteLine("5 - Cancel order");
+                Console.WriteLine("6 - Exit");
                 Console.Write("Enter Option: ");
                 string user = Console.ReadLine();
                 int choice;
@@ -48,45 +54,67 @@ namespace Shopping_Cart_De_Dios
 
                         for (int i = 0; i < shop.Length; i++)
                         {
-                            for (int x = 0; x < price.Length; x++)
-                                Console.WriteLine($"{i + 1} - {shop[i]} - {price[i]}");
+                                Console.WriteLine($"{i + 1} - {shop[i]} - {price[i]} - {stock[i]}");
                         }
 
                         break;
 
                     case 2:
+                        bool done = false;
+                        while (!done) {
+                            for (int i = 0; i < shop.Length; i++)
+                            {
 
-                        for (int i = 0; i < shop.Length; i++)
-                        {
-                            
                                 Console.WriteLine($"{i + 1} - Item: {shop[i]} | Price: {price[i]} | Stock: {stock[i]}");
-                            
-                        }
-
-                        Console.WriteLine("Enter number to add in cart: ");
-                        string add = Console.ReadLine();
-                        int order;
-
-                        if (int.TryParse(add, out order) && order >= 1 && order <= shop.Length)
-                        {
-                            Console.Write("Enter purchase amount: ");
-                            string amount = Console.ReadLine();
-                            int amount_purchase;
-                            if (int.TryParse(amount, out amount_purchase))
-                            {
-                                Grand_Total1 += price[order - 1] * amount_purchase;
 
                             }
-                            if (stock[order - 1] >= amount_purchase)
-                            {
-                               stock[order - 1] -= amount_purchase;
-                            }
-                        }
 
-                        if (!int.TryParse(add, out order))
-                        {
-                            Console.WriteLine("Invalid Input");
-                        }
+                            Console.WriteLine("Enter number to add in cart (0 to finish): ");
+                            string add = Console.ReadLine();
+                            int order;
+
+                            if (!int.TryParse(add, out order))
+                            {
+                                Console.WriteLine("Invalid Input");
+                                continue;
+                            }
+
+
+
+                            if (order == 0)
+                            {
+                                done = true;
+                                break;
+                            }
+
+                                if (int.TryParse(add, out order) && order >= 1 && order <= shop.Length)
+                            {
+                                
+                                    Console.Write("Enter purchase amount: ");
+                                    string amount = Console.ReadLine();
+                                    int amount_purchase;
+                                    
+                                    if (int.TryParse(amount, out amount_purchase))
+                                    {
+                                        if (stock[order - 1] >= amount_purchase)
+                                        {
+                                            stock[order - 1] -= amount_purchase;
+                                            Grand_Total1 += price[order - 1] * amount_purchase;
+                                            purchases.Add($"You have purchased {amount} {shop[order - 1]} {price[order - 1]}");
+                                    }
+                                    else if (stock[order - 1] < amount_purchase)
+                                    {
+                                        Console.WriteLine("Insufficient Stock");
+                                    }
+                                    }
+                                    if (Grand_Total1 >= 5000)
+                                    {
+                                        Grand_Total = (int)(Grand_Total1 * discount);
+                                    }
+
+                                
+                                }
+                            }
 
                         break;
 
@@ -98,7 +126,7 @@ namespace Shopping_Cart_De_Dios
                             Console.WriteLine($"Total amount $" + Grand_Total);
                         }
 
-                        
+
 
                         break;
 
@@ -148,7 +176,7 @@ namespace Shopping_Cart_De_Dios
                                 }
                             }
                         }
-                        else if (int.TryParse(option, out optpay) && optpay == 1)
+                        else if (int.TryParse(option, out optpay) && optpay == 2)
                         {
                             continue;
                         }
@@ -164,8 +192,7 @@ namespace Shopping_Cart_De_Dios
 
                         break;
 
-
-                    case 5:
+                   case 5:
 
                         exit = true;
 
@@ -175,5 +202,6 @@ namespace Shopping_Cart_De_Dios
 
             }
         }
+        
     }
 }
