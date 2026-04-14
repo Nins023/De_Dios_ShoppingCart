@@ -1,3 +1,6 @@
 April 12, 2026: So far I was thinking that I want a seperate class for the system (Class1.cs) and another class for the receipt or purchase history if possible., and so far I have done a sample list of items and their prices as well as made a total price whenever the user picks an item. I learned how to use TryParse from someone else, and so far there is none A.I prompt since I took inspiration from the voting system activity. 
 
 April 13, 2026: I have updated where if the user orders and the price is 5k or more the total will be discounted for 10% of its total altough the samples are unrealistic it serves as a placeholder for now, I have also updated where the user can place a bulk order where the user will choose an item and the user will be able to dictate how many orders will be placed, and I have updated where the stocks go down whenever the user places its order. So far my usage of A.I used for the problem occured last time whereas the menu in case 2 doubles for each item.
+
+April 14, 2026 I have updated whereas there is a receipt, I have used A.I to guide me on how can I make my arrays be accessible to other classes
+My prompt: "my arrays are currently inside of my public static void how can I link the array to another class c#"
