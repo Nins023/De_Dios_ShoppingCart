@@ -10,18 +10,24 @@ namespace Shopping_Cart_De_Dios
         {
             
             for (int i = 0; i < Class1.shop.Length; i++)
-            { 
-                    Console.WriteLine($"{i + 1} - {Class1.shop[i]} - {Class1.price[i]} - {Class1.stock[i]}");
+            {
+                  
+                Console.WriteLine($"Item ID: {i + 1} | Pastries: {Class1.shop[i]} | Price: {Class1.price[i]} | Stock: {Class1.stock[i]}");
             }
         }
 
         public static void receipt()
         {
-            foreach (string bought in Class1.purchases)
+            
+            Console.WriteLine("= = = = = Transactions = = = = =");
+            foreach (string cake in Class1.receipt)
             {
-                Console.WriteLine(bought);
-                
+
+                Console.WriteLine(cake);
+
+                Console.WriteLine("= = = = = End of Transactions = = = = =");
             }
+            
         }
     }
 }
