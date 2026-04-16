@@ -83,15 +83,22 @@ namespace Shopping_Cart_De_Dios
                                 break;
                             }
 
+                            
+
                             if (!int.TryParse(add, out order))
                             {
                                 Console.WriteLine("Invalid Input");
                                 continue;
                             }
 
-                           
+                            else if (order > shop.Length) 
+                            {
+                                Console.WriteLine("Item ID does not exist!");
+                            }
 
-                                if (int.TryParse(add, out order) && order >= 1 && order <= shop.Length)
+
+
+                            if (int.TryParse(add, out order) && order >= 1 && order <= shop.Length)
                             {
                                 
                                     Console.Write("Enter purchase amount: ");
@@ -295,6 +302,12 @@ namespace Shopping_Cart_De_Dios
                         {
                             Console.WriteLine("Invalid Option");
                         }
+
+                        break;
+
+                    default:
+
+                        Console.WriteLine("Please enter an option between 1-6");
 
                         break;
                 }
