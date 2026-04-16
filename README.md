@@ -6,3 +6,5 @@ April 14, 2026 I have updated whereas there is a receipt, I have used A.I to gui
 My prompt: "my arrays are currently inside of my public static void how can I link the array to another class c#"
 
 April 15, 2026: My A.I usage in this projects are mostly for debugging like stocks validations, guiding me to globalize my lists my prompt is "my arrays are currently inside of my public static void how can I link the array to another class c#" printing errors that I overlooked and correcting my dictionary, 	as for debugging I send my code and prompt “double check my code”
+
+April 16, 2026: Added validation messages
