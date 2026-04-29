@@ -1,55 +1,55 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace Shopping_Cart_De_Dios
+﻿namespace ShoppingCart_Prt2_De_Dios
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            
 
-            bool exit = false;
-            while (!exit)
-            {
-                Console.WriteLine("De Dios Shopping cart system");
-                Console.WriteLine("Current stocks");
-                Class2.menu();
-                Console.WriteLine("Choose Option");
-                Console.WriteLine("1 - Shopping system");
-                Console.WriteLine("2 - Receipts/Purchase history");
-                Console.Write("Enter Option: ");
-                string Options = Console.ReadLine();
-                int choice;
-                if (int.TryParse(Options, out choice))
+                bool exit = false;
+                while (!exit)
                 {
-                    switch (choice)
+                    Console.WriteLine("De Dios Shopping cart system");
+                    Console.WriteLine("Current stocks");
+                    Product.DisplayProducts();
+                    Console.WriteLine("Choose Option");
+                    Console.WriteLine("1 - Shopping system");
+                    Console.WriteLine("2 - Receipts/Purchase history");
+                    Console.Write("Enter Option: ");
+                    string Options = Console.ReadLine();
+                    int choice;
+                    if (int.TryParse(Options, out choice))
                     {
-                        case 1:
+                        switch (choice)
+                        {
+                            case 1:
 
-                            Class1.Hello();
+                                Class1.Hello();
 
-                            break;
+                                break;
 
-                        case 2:
+                            case 2:
 
-                           Class2.receipt();
+                                Class2.receipt();
 
-                            break;
+                                break;
 
 
-                        case 3:
+                            case 3:
 
-                            exit = true;
+                                exit = true;
 
-                            break;
-                        default:
+                                break;
+                            default:
 
-                            Console.WriteLine("Invalid Option");
+                                Console.WriteLine("Invalid Option");
 
-                            break;
+                                break;
+                        }
                     }
                 }
             }
-        }
 
+        }
     }
-}
+
