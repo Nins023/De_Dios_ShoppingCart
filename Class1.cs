@@ -8,9 +8,7 @@ namespace ShoppingCart_Prt2_De_Dios
 {
     internal class Class1
     {
-        public static string[] shop = ["Chocolate Cake", "Black Forest Cake", "Strawberry Cake", "Vanilla Cake", "Mocha Cake"];
-        public static int[] price = [350, 550, 300, 250, 400];
-        public static int[] stock = [80, 60, 45, 70, 45];
+        
         public static List<string> purchases = new List<string>();
         public static List<string> paycus = new List<string>();
         public static List<string> purchasenow = new List<string>();
@@ -24,17 +22,7 @@ namespace ShoppingCart_Prt2_De_Dios
         public static void Hello()
         {
 
-            int[] cart = new int[shop.Length];
-
-
-            int[] prices = new int[price.Length];
-
-            int[] stocks = new int[stock.Length];
             
-            List<int> CartItemNum = new List<int>();
-            List<int> CartQuant = new List<int>();
-            int Total_Price = 0;
-            int remStock = 0;
            
             
             double discount = 0.90;
@@ -48,8 +36,8 @@ namespace ShoppingCart_Prt2_De_Dios
                 Console.WriteLine("= = = = = De Dios shopping system = = = = =");
                 Console.WriteLine("1 - See available items");
                 Console.WriteLine("2 - Add to Cart");
-                Console.WriteLine("3 - See total");
-                Console.WriteLine("4 - Payment");
+                Console.WriteLine("3 - Search item");
+                Console.WriteLine("4 - Category Filter");
                 Console.WriteLine("5 - See Cart");
                 Console.WriteLine("6 - Exit");
                 Console.Write("Enter Option: ");
@@ -77,25 +65,14 @@ namespace ShoppingCart_Prt2_De_Dios
 
                     case 3:
 
-                        Grand_Total = Grand_Total1;
-
-                        if (Grand_Total1 >= 5000)
-                        {
-                            Grand_Total = (int)(Grand_Total1 * discount);
-                            Console.WriteLine($"Total amount $" + Grand_Total);
-                        }
-                        else if (Grand_Total < 5000)
-                        {
-                            Console.WriteLine($"Total amount: {Grand_Total}");
-                        }
-
+                        Class2.search();
 
 
                         break;
 
 
                     case 4:
-                        Class2.getitemtotal(Class1.Grand_Total1, Class1.bought, Class1.bamount);
+                        Class2.categoryfilter();
 
                         break;
 
@@ -106,40 +83,11 @@ namespace ShoppingCart_Prt2_De_Dios
                         break;
 
                     case 6:
-                        Console.WriteLine("You are exiting the system if not yet paid progress will be lost");
-                        Console.WriteLine("1 (continue) \n2 (go back)");
-                        string des = Console.ReadLine();
-                        int decide;
-                        if (!int.TryParse(des, out decide))
-                        {
-                            Console.WriteLine("Invalid Input");
-                        }
-
-                        else if (decide == 1)
-                        {
-
-                            exit = true;
-                            if (!paid)
-                            {
-                                purchasenow.Clear();
-                                bamount = 0;
-                            }
-                        }
-                        else if (decide == 2)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid Option");
-                        }
+                        exit = true;
 
                         break;
-
                     default:
-
-                        Console.WriteLine("Please enter an option between 1-6");
-
+                        Console.WriteLine("Choose between 1 - 6");
                         break;
                 }
 

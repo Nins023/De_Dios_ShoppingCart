@@ -12,13 +12,13 @@ namespace ShoppingCart_Prt2_De_Dios
         public static void receipt()
         {
 
-            Console.WriteLine("= = = = = Transactions = = = = =");
-            foreach (string cake in Class1.receipt)
+            Console.WriteLine("= = = = = Order History = = = = =");
+            foreach (string history in Class1.receipt)
             {
 
-                Console.WriteLine(cake);
+                Console.WriteLine(history);
 
-                Console.WriteLine("= = = = = End of Transactions = = = = =");
+
             }
         }
 
@@ -104,7 +104,7 @@ namespace ShoppingCart_Prt2_De_Dios
                 }
             }
 
-           
+
 
         }
 
@@ -120,6 +120,7 @@ namespace ShoppingCart_Prt2_De_Dios
         public static void notenoughstock()
         {
             Console.WriteLine("Insufficient stock!");
+            
         }
 
         public static void getitemtotal(int Grand_Total1, Dictionary<int, int> bought, int bamount)
@@ -144,7 +145,7 @@ namespace ShoppingCart_Prt2_De_Dios
                     continue;
                 }
 
-                switch (payment2) 
+                switch (payment2)
                 {
 
                     case 1:
@@ -164,22 +165,51 @@ namespace ShoppingCart_Prt2_De_Dios
                             Console.WriteLine("Invalid Payment");
                             continue;
                         }
-
                         int change = paycus2 - Grand_Total;
-                        Console.WriteLine($"Change: {change}");
+                        foreach (var item in Class1.bought)
+                        {
+                            int itemID = item.Key;
+                            int quantity = item.Value;
+
+                            int itemPrice = Product.Products[itemID - 1].Price;
+                            int total = itemPrice * quantity;
+                            string seediscount = "";
+                            if (total >= 5000)
+                            {
+                               seediscount = "10%";
+                            }
+                            else
+                            {
+                                seediscount = "None";
+                            }
+
+                            
+                            Class1.basket = $"Receipt {Class1.receipt.Count + 1}| Item:{Product.Products[itemID - 1].Name} | Qty: {quantity} | Price: {itemPrice} | Total: {total} | Discount: {seediscount} | Change: {change}";
+                            Console.WriteLine(Class1.basket);
+
+                        }
+                        
+                        string showprice = $"Receipt {Class1.receipt.Count + 1}: Total Price: {Grand_Total}| Change: {change} | Date: {DateTime.Now}";
+
+                            Class1.receipt.Add(showprice);
+                        
+
+                     
+                        Class1.Grand_Total1 = 0;
+                        Class1.Grand_Total = 0;
                         bought.Clear();
                         paid = true;
 
 
                         break;
 
-                        case 2:
+                    case 2:
 
                         Console.WriteLine("Payment cancelled");
                         paid = true;
 
                         break;
-                
+
                 }
 
             }
@@ -187,7 +217,7 @@ namespace ShoppingCart_Prt2_De_Dios
 
         public static void managecart()
         {
-            
+
 
             bool back = false;
             while (!back)
@@ -200,6 +230,7 @@ namespace ShoppingCart_Prt2_De_Dios
                 Console.WriteLine("4 - Clear cart");
                 Console.WriteLine("5 - Checkout");
                 Console.WriteLine("6 - Go back");
+                Console.Write("Enter option: ");
                 string cartopt = Console.ReadLine();
                 int cartopt2;
 
@@ -248,7 +279,7 @@ namespace ShoppingCart_Prt2_De_Dios
                         {
                             int backstock = Class1.bought[RemoveID2];
                             Product.Products[RemoveID2 - 1].Stock += backstock;
-                            
+
                             Class1.Grand_Total1 -= Product.Products[RemoveID2 - 1].Price * Class1.bought[RemoveID2];
                             Class1.bought.Remove(RemoveID2);
                             Console.WriteLine("Item Removed");
@@ -357,10 +388,10 @@ namespace ShoppingCart_Prt2_De_Dios
                                         continue;
                                     }
 
-                                   
-                                        Product.Products[chng2 - 1].Stock += sub2;
-                                        int addquanti = Class1.bought[chng2] -= sub2;
-                                        Class1.Grand_Total1 -= Product.Products[chng2 - 1].Price * sub2;
+
+                                    Product.Products[chng2 - 1].Stock += sub2;
+                                    int addquanti = Class1.bought[chng2] -= sub2;
+                                    Class1.Grand_Total1 -= Product.Products[chng2 - 1].Price * sub2;
 
 
                                 }
@@ -373,7 +404,7 @@ namespace ShoppingCart_Prt2_De_Dios
                     case 4:
 
                         Console.WriteLine("Cart will be cleared, continue? 1 - Yes 2 - No");
-                        string clr =    Console.ReadLine();
+                        string clr = Console.ReadLine();
                         int clr2;
 
                         if (!int.TryParse(clr, out clr2))
@@ -402,30 +433,166 @@ namespace ShoppingCart_Prt2_De_Dios
                         {
                             Console.WriteLine("Cancelled");
                         }
-
+                        else
+                        {
+                            Console.WriteLine("Invalid Input");
+                        }
 
                         break;
 
                     case 5:
 
                         Class2.getitemtotal(Class1.Grand_Total1, Class1.bought, Class1.bamount);
-
+                        Console.WriteLine("= = = = = Updated Stock Quantity = = = = = ");
+                        Product.DisplayProducts();
+                        Console.WriteLine("= = = = = End of Updated Stock Quantity = = = = =");
+                        Console.WriteLine("= = = = = Low Stock Alert = = = = =");
+                        bool lowstockalerts = false;
+                        for (int i = 0; i < Product.Products.Length; i++) {
+                            if (Product.Products[i].Stock <= 5)
+                            {
+                                
+                                Console.WriteLine($"{Product.Products[i].Name} has only {Product.Products[i].Stock} Stock!");
+                                lowstockalerts = true;
+                            }
+                            
+                                
+                        }
+                        if (!lowstockalerts)
+                        {
+                            Console.WriteLine("No low stock alerts");
+                        }
                         break;
 
-            
 
                     case 6:
 
                         back = true;
 
                         break;
+                    default:
+                        Console.WriteLine("Choose between 1 - 6");
+                        break;
 
 
                 }
             }
         }
+        public static void search()
+        {
+            Console.WriteLine("Enter product ID or Name: ");
+            string searchitem = Console.ReadLine();
+            if (!string.IsNullOrEmpty(searchitem))
+            {
+                searchitem = char.ToUpper(searchitem[0]) + searchitem.Substring(1).ToLower();
+            }
+            int searchitem2;
+            if (int.TryParse(searchitem, out searchitem2))
+            {
+                if (searchitem2 >= 1 && searchitem2 <= Product.Products.Length)
+                {
+                    Product p = Product.Products[searchitem2 - 1];
+
+                    Console.WriteLine($"{p.Name} | Price: {p.Price} | Stock: {p.Stock}");
+                }
+
+                else
+                {
+                    Console.WriteLine("Product ID does not exist");
+                }
+
+            }
+
+            else
+            {
+                bool found = false;
+
+                for (int i = 0; i < Product.Products.Length; i++)
+                {
+                    if (searchitem == Product.Products[i].Name)
+                    {
+                        Product p = Product.Products[i];
+
+                        Console.WriteLine($"{p.Name} | Price: {p.Price} | Stock: {p.Stock}");
+                        found = true;
+                    }
+                }
+
+                if (!found)
+                {
+                    Console.WriteLine("Product not found!");
+                }
+            }
+
+
+        }
+
+        public static void categoryfilter()
+        {
+
+            List<string> categories = new List<string>();
+
+            foreach (Product p in Product.Products)
+            {
+                if (!categories.Contains(p.category))
+                {
+                    categories.Add(p.category);
+                }
+            }
+            for (int i = 0; i < categories.Count; i++)
+            {
+                Console.WriteLine($"{i + 1} - {categories[i]}");
+            }
+            bool done = false;
+            while (!done)
+            {
+                Console.WriteLine("Enter Category | Use number (N for exit): ");
+                string cate = Console.ReadLine();
+                if (cate == "N" || cate == "n")
+                {
+                    done = true;
+                    break;
+                }
+                int cate2;
+
+                if (!int.TryParse(cate, out cate2))
+                {
+                    Console.WriteLine("Invalid Input");
+                    return;
+                }
+
+                if (cate2 < 1 || cate2 > categories.Count)
+                {
+                    Console.WriteLine("Category does not exist");
+                    return;
+                }
+
+                string chosenCategory = categories[cate2 - 1];
+
+                Console.WriteLine($"= = = {chosenCategory} Products = = =");
+
+                for (int i = 0; i < Product.Products.Length; i++)
+                {
+                    if (Product.Products[i].category == chosenCategory)
+                    {
+                        Console.WriteLine(
+                            $"ID: {i + 1} | " +
+                            $"Name: {Product.Products[i].Name} | " +
+                            $"Price: {Product.Products[i].Price} | " +
+                            $"Stock: {Product.Products[i].Stock}"
+                        );
+                    }
+                }
+
+            }
+
+
+        }
     }
-    }
+}
+    
+
+    
 
     
 

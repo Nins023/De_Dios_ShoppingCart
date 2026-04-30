@@ -15,6 +15,7 @@
                     Console.WriteLine("Choose Option");
                     Console.WriteLine("1 - Shopping system");
                     Console.WriteLine("2 - Receipts/Purchase history");
+                    Console.WriteLine("3 - End Program");
                     Console.Write("Enter Option: ");
                     string Options = Console.ReadLine();
                     int choice;
