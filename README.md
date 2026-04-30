@@ -16,3 +16,5 @@ April 27-29, 2026: Added Product class, methods, and updated cart management
 April 30, 2026: Finished Other Requirements
 
 Updated AI Usage: Mostly for debugging and logic for the search feature
+
+Updated features: Add/reduce quantity can be done now in cart management, search is kinda fragile as you need the exact name of the item and it is reccommended to don't use capital letters at all, Items can be found using Item ID, Payment is also done in cart management in the checkout. 
