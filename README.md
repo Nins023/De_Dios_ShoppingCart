@@ -11,3 +11,8 @@ April 16, 2026: Added validation messages
 
 
 April 27-29, 2026: Added Product class, methods, and updated cart management
+
+
+April 30, 2026: Finished Other Requirements
+
+Updated AI Usage: Mostly for debugging and logic for the search feature
