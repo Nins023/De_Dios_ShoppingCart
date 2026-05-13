@@ -82,7 +82,7 @@ namespace ShoppingCart_Prt2_De_Dios
                         }
 
 
-                        Product.Products[order - 1].Stock -= amount_purchase;
+                        Product.Products[order - 1].SetStock(Product.Products[order - 1].Stock - amount_purchase);
                         Class1.Grand_Total1 += Product.Products[order - 1].Price * amount_purchase;
                         Class1.bamount += amount_purchase;
 
@@ -278,7 +278,7 @@ namespace ShoppingCart_Prt2_De_Dios
                         if (Class1.bought.ContainsKey(RemoveID2))
                         {
                             int backstock = Class1.bought[RemoveID2];
-                            Product.Products[RemoveID2 - 1].Stock += backstock;
+                            Product.Products[RemoveID2 - 1].SetStock(Product.Products[RemoveID2 - 1].Stock + backstock);
 
                             Class1.Grand_Total1 -= Product.Products[RemoveID2 - 1].Price * Class1.bought[RemoveID2];
                             Class1.bought.Remove(RemoveID2);
@@ -359,7 +359,7 @@ namespace ShoppingCart_Prt2_De_Dios
                                             Console.WriteLine("Desired additional quantities is more than cart can hold");
                                             continue;
                                         }
-                                        Product.Products[chng2 - 1].Stock -= add2;
+                                        Product.Products[chng2 - 1].SetStock(Product.Products[chng2 - 1].Stock - add2);
                                         int addquanti = Class1.bought[chng2] += add2;
                                         Class1.Grand_Total1 += Product.Products[chng2 - 1].Price * add2;
 
@@ -389,7 +389,7 @@ namespace ShoppingCart_Prt2_De_Dios
                                     }
 
 
-                                    Product.Products[chng2 - 1].Stock += sub2;
+                                    Product.Products[chng2 - 1].SetStock(Product.Products[chng2 - 1].Stock + sub2);
                                     int addquanti = Class1.bought[chng2] -= sub2;
                                     Class1.Grand_Total1 -= Product.Products[chng2 - 1].Price * sub2;
 
@@ -420,7 +420,7 @@ namespace ShoppingCart_Prt2_De_Dios
                                 int ID = prods.Key;
                                 int qunt = prods.Value;
 
-                                Product.Products[ID - 1].Stock += qunt;
+                                Product.Products[ID - 1].SetStock(Product.Products[ID - 1].Stock + qunt);
                             }
 
                             Class1.bought.Clear();
@@ -534,9 +534,9 @@ namespace ShoppingCart_Prt2_De_Dios
 
             foreach (Product p in Product.Products)
             {
-                if (!categories.Contains(p.category))
+                if (!categories.Contains(p.Category))
                 {
-                    categories.Add(p.category);
+                    categories.Add(p.Category);
                 }
             }
             for (int i = 0; i < categories.Count; i++)
@@ -573,7 +573,7 @@ namespace ShoppingCart_Prt2_De_Dios
 
                 for (int i = 0; i < Product.Products.Length; i++)
                 {
-                    if (Product.Products[i].category == chosenCategory)
+                    if (Product.Products[i].Category == chosenCategory)
                     {
                         Console.WriteLine(
                             $"ID: {i + 1} | " +
